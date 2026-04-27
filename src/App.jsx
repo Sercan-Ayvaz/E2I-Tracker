@@ -1,0 +1,27 @@
+// src/App.jsx - Ana uygulama bileşeni
+
+import React, { useState } from 'react';
+import AuthEntry from './Components/Auth/AuthEntry.jsx';
+import DashboardPage from './Pages/Dashboard/DashboardPage.jsx';
+import { getCurrentUser, initStorage } from './Utils/storage.ts';
+
+function App() {
+  initStorage(); // LocalStorage'ı başlat
+  const [authenticated, setAuthenticated] = useState(!!getCurrentUser());
+
+  const handleAuthSuccess = () => {
+    setAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setAuthenticated(false);
+  };
+
+  if (authenticated) {
+    return <DashboardPage onLogout={handleLogout} />;
+  }
+
+  return <AuthEntry onAuthSuccess={handleAuthSuccess} />;
+}
+
+export default App;
