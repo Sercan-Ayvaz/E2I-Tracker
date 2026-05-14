@@ -5,6 +5,8 @@
 
 E2I Tracker is a role-based finance tracking application that allows families to easily manage their income, expense, and investment records. Users can create their own families, invite other members, record financial movements, and automate financial processes with recurring transactions. The application aims to increase intra-family transparency and financial health while offering privacy options for personal investment data.
 
+Web Site: [e2i-tracker](https://e2i-tracker.netlify.app/)
+
 ## ✨ Features
 
 -   **Secure Authentication:** Secure login and registration with username and SHA-512 hashed passwords. Your passwords are never stored in plain text.
