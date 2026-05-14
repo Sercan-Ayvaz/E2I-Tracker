@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getUser, getFamily } from '../../Utils/storage';
+import { Calendar, Tag, DollarSign, User, MoreHorizontal, Info, Edit3, Trash2 } from 'lucide-react';
 
 const TransactionTable = ({ transactions, onEdit, onDelete, currentUser, t }) => {
   const userRole = currentUser?.role;
@@ -67,13 +68,19 @@ const TransactionTable = ({ transactions, onEdit, onDelete, currentUser, t }) =>
       <table className="transaction-table">
         <thead>
           <tr>
-            <th onClick={() => requestSort('date')} style={{cursor:'pointer'}}>{t.date} {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</th>
-            <th>{t.title}</th>
-            <th onClick={() => requestSort('category')} style={{cursor:'pointer'}}>{t.category} {sortConfig.key === 'category' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</th>
-            <th onClick={() => requestSort('amount')} style={{cursor:'pointer'}}>{t.amount} {sortConfig.key === 'amount' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</th>
-            <th>{t.user}</th>
-            <th>ℹ️</th>
-            <th>{t.actions}</th>
+            <th onClick={() => requestSort('date')} style={{cursor:'pointer'}}>
+              <div className="flex items-center gap-1"><Calendar size={14} /> {t.date} {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</div>
+            </th>
+            <th><div className="flex items-center gap-1"><Info size={14} /> {t.title}</div></th>
+            <th onClick={() => requestSort('category')} style={{cursor:'pointer'}}>
+              <div className="flex items-center gap-1"><Tag size={14} /> {t.category} {sortConfig.key === 'category' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</div>
+            </th>
+            <th onClick={() => requestSort('amount')} style={{cursor:'pointer'}}>
+              <div className="flex items-center gap-1"><DollarSign size={14} /> {t.amount} {sortConfig.key === 'amount' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</div>
+            </th>
+            <th><div className="flex items-center gap-1"><User size={14} /> {t.user}</div></th>
+            <th><Info size={14} /></th>
+            <th><div className="flex items-center gap-1"><MoreHorizontal size={14} /> {t.actions}</div></th>
           </tr>
         </thead>
         <tbody>

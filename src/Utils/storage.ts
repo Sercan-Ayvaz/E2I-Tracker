@@ -352,6 +352,8 @@ function processRecurringTransactions() {
 
   Object.values(state.recurringTransactions || {}).forEach((rec: any) => {
     if (rec.userId === user.id && rec.lastProcessedMonth !== currentMonthStr && (currentDay >= rec.dayOfMonth || now.getMonth() > new Date(rec.lastProcessedMonth).getMonth())) {
+      const planOwner = state.users[rec.userId];
+      const ownerName = planOwner?.displayName || 'User';
       const transactionId = generateUUID();
       const newTx = {
         id: transactionId,
@@ -368,8 +370,8 @@ function processRecurringTransactions() {
         price: rec.price,
         history: [{
           updatedAt: now.toISOString(),
-          updatedBy: 'System',
-          changes: 'Auto recurring transaction processed'
+          updatedBy: 'System (Auto)',
+          changes: `Yinelenen işlem (${ownerName}) otomatik olarak oluşturuldu.`
         }]
       };
 

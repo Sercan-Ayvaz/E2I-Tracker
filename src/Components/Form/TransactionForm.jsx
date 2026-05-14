@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Tag, DollarSign, Repeat, ShieldCheck } from 'lucide-react';
+import { Calendar, Tag, DollarSign, Repeat, ShieldCheck, PlusCircle, Edit3 } from 'lucide-react';
 import { createTransaction, updateTransaction, getCurrentUser, createRecurringTransaction, updateRecurringTransaction } from '../../Utils/storage.ts';
 
 function TransactionForm({ isOpen, onClose, transaction, recurringPlan, defaultCategory, onSuccess, t }) {
@@ -137,7 +137,14 @@ function TransactionForm({ isOpen, onClose, transaction, recurringPlan, defaultC
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>{transaction || recurringPlan ? t.edit : `${formData.category === 'Income' ? t.income : formData.category === 'Expense' ? t.expense : t.investment} ${t.add}`}</h2>
+          <h2 className="flex items-center gap-2">
+            {transaction || recurringPlan ? (
+              <Edit3 size={24} className="text-emerald-600" />
+            ) : (
+              <PlusCircle size={24} className="text-emerald-600" />
+            )}
+            {transaction || recurringPlan ? t.edit : `${formData.category === 'Income' ? t.income : formData.category === 'Expense' ? t.expense : t.investment} ${t.add}`}
+          </h2>
           <button className="modal-close-btn" onClick={onClose} title="Kapat">✕</button>
         </div>
 

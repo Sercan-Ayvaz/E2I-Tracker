@@ -1,6 +1,7 @@
 // src/Components/Family/FamilyModal.jsx
 
 import React, { useState, useEffect } from 'react';
+import { Users, UserPlus, Shield, Settings, LogOut, Copy, Check, Trash2, Home } from 'lucide-react';
 import {
   createFamily,
   getCurrentUser,
@@ -237,7 +238,10 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content modal-content--wide" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>{t.family}</h2>
+          <h2 className="flex items-center gap-2">
+            <Home size={24} className="text-sky-500" />
+            {t.family}
+          </h2>
           <button type="button" className="modal-close-btn" onClick={onClose} title="Kapat">
             ✕
           </button>
@@ -256,6 +260,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                   className={`modal-tab ${activeTab === 'create' ? 'active' : ''}`}
                   onClick={() => setActiveTab('create')}
                 >
+                  <Shield size={16} className="inline-block mr-2" />
                   {t.create}
                 </button>
                 <button
@@ -263,6 +268,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                   className={`modal-tab ${activeTab === 'join' ? 'active' : ''}`}
                   onClick={() => setActiveTab('join')}
                 >
+                  <UserPlus size={16} className="inline-block mr-2" />
                   {t.join}
                 </button>
               </>
@@ -274,6 +280,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                   className={`modal-tab ${activeTab === 'manage' ? 'active' : ''}`}
                   onClick={() => setActiveTab('manage')}
                 >
+                  <Settings size={16} className="inline-block mr-2" />
                   {t.family}
                 </button>
                 <button
@@ -281,6 +288,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                   className={`modal-tab ${activeTab === 'leave' ? 'active' : ''}`}
                   onClick={() => setActiveTab('leave')}
                 >
+                  <LogOut size={16} className="inline-block mr-2" />
                   {t.leave}
                 </button>
               </>

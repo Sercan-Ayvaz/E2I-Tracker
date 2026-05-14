@@ -5,6 +5,17 @@ import FamilyModal from '../../Components/Family/FamilyModal.jsx';
 import TransactionTable from '../../Components/Table/TransactionTable.jsx';
 import TransactionForm from '../../Components/Form/TransactionForm.jsx';
 import { 
+  TrendingUp, 
+  TrendingDown, 
+  PieChart, 
+  Wallet, 
+  History, 
+  Users, 
+  LogOut, 
+  Calendar,
+  LayoutDashboard
+} from 'lucide-react';
+import { 
   getCurrentUser, 
   getTransactionsByFamily, 
   getFamily, 
@@ -37,6 +48,20 @@ function DashboardPage({ onLogout }) {
   // Dil State'i
   const [lang, setLang] = useState(localStorage.getItem('e2i_lang') || 'tr');
   const t = translations[lang];
+
+  // Dinamik Tarayıcı Başlığı ve Favicon (Title Icon)
+  useEffect(() => {
+    // Sekme Başlığı
+    document.title = `E2I Tracker | ${user?.displayName || 'Dashboard'}`;
+    
+    // Dinamik Favicon (Emoji tabanlı SVG icon)
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    link.rel = 'icon';
+    link.href = `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>`;
+    if (!document.querySelector("link[rel~='icon']")) {
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+  }, [lang, user?.displayName]);
 
   // Otomatik işlemleri kontrol et
   useEffect(() => {
@@ -207,10 +232,10 @@ function DashboardPage({ onLogout }) {
                 </select>
               </div>
               <button className="dashboard-action-btn dashboard-action-btn--primary" onClick={() => setIsFamilyModalOpen(true)}>
-                {t.family}
+                <Users size={16} className="inline-block mr-2" /> {t.family}
               </button>
               <button className="dashboard-action-btn dashboard-action-btn--logout" onClick={handleLogout}>
-                {t.logout}
+                <LogOut size={16} className="inline-block mr-2" /> {t.logout}
               </button>
             </div>
           </div>
@@ -218,11 +243,17 @@ function DashboardPage({ onLogout }) {
           {/* Üst Satır - İlk 2 Card */}
           <div className="dashboard-cards-row">
             <article className="dashboard-card dashboard-card--income">
-              <h3>{t.totalIncome}</h3>
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingUp size={20} className="text-emerald-500" />
+                <h3 className="m-0">{t.totalIncome}</h3>
+              </div>
               <p className="card-amount">{totals.income.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
             </article>
             <article className="dashboard-card dashboard-card--expense">
-              <h3>{t.totalExpense}</h3>
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingDown size={20} className="text-rose-500" />
+                <h3 className="m-0">{t.totalExpense}</h3>
+              </div>
               <p className="card-amount">{totals.expense.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
             </article>
           </div>
@@ -230,14 +261,20 @@ function DashboardPage({ onLogout }) {
           {/* Ortası Satır - Yatırım ve Bakiye */}
           <div className="dashboard-cards-row">
             <article className="dashboard-card dashboard-card--investment">
-              <h3>{t.totalInvestment}</h3>
+              <div className="flex items-center gap-2 mb-1">
+                <PieChart size={20} className="text-blue-500" />
+                <h3 className="m-0">{t.totalInvestment}</h3>
+              </div>
               <p className="card-amount">{totals.investment.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
               <p className="card-hint">
                 {totals.investment > 0 ? t.investmentGrow : t.noInvestment}
               </p>
             </article>
             <article className="dashboard-card dashboard-card--balance">
-              <h3>{t.balance}</h3>
+              <div className="flex items-center gap-2 mb-1">
+                <Wallet size={20} className="text-amber-500" />
+                <h3 className="m-0">{t.balance}</h3>
+              </div>
               <p className="card-amount balance-highlight">{balance.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
             </article>
           </div>
@@ -248,35 +285,44 @@ function DashboardPage({ onLogout }) {
       {recurringPlans.length > 0 && (
         <section className="recurring-plans-section">
           <div className="section-header">
-            <h3>🗓️ {t.activePlans}</h3>
+            <h3><Calendar size={22} className="inline-block mr-2 text-sky-500" /> {t.activePlans}</h3>
             <p>{t.autoDesc}</p>
           </div>
           <div className="recurring-grid">
-            {recurringPlans.map(plan => (
-              <div key={plan.id} className={`recurring-mini-card recurring-mini-card--${plan.category.toLowerCase()}`}>
-                <div className="plan-info">
-                  <span className="plan-day">{t.everyMonth} {plan.dayOfMonth}</span>
-                  <h4>{plan.title}</h4>
-                  <p className="plan-amount">{plan.amount.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
+            {recurringPlans.map(plan => {
+              const planOwner = getUser(plan.userId);
+              const isOwner = plan.userId === user?.id;
+              return (
+                <div key={plan.id} className={`recurring-mini-card recurring-mini-card--${plan.category.toLowerCase()}`}>
+                  <div className="plan-info">
+                    <div className="flex justify-between items-start mb-1">
+                      <span className="plan-day">{t.everyMonth} {plan.dayOfMonth}</span>
+                      <span className="plan-owner-tag">👤 {planOwner?.displayName || '...'}</span>
+                    </div>
+                    <h4>{plan.title}</h4>
+                    <p className="plan-amount">{plan.amount.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
+                  </div>
+                  {isOwner && (
+                    <div style={{ display: 'flex', gap: '0.4rem', marginLeft: '0.5rem' }}>
+                      <button 
+                        className="plan-edit-btn" 
+                        onClick={() => handleOpenRecurringModal(plan)}
+                        title={t.edit}
+                      >
+                        ✎
+                      </button>
+                      <button 
+                        className="plan-delete-btn" 
+                        onClick={() => handleDeleteRecurring(plan.id)}
+                        title="Planı İptal Et"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button 
-                    className="plan-edit-btn" 
-                    onClick={() => handleOpenRecurringModal(plan)}
-                    title={t.edit}
-                  >
-                    ✎
-                  </button>
-                  <button 
-                    className="plan-delete-btn" 
-                    onClick={() => handleDeleteRecurring(plan.id)}
-                    title="Planı İptal Et"
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}
@@ -306,7 +352,7 @@ function DashboardPage({ onLogout }) {
       <section className="dashboard-table-section">
         <div className="dashboard-table-header">
           <div>
-              <h3>{t.history}</h3>
+              <h3><History size={22} className="inline-block mr-2 text-slate-400" /> {t.history}</h3>
             <p className="dashboard-table-subtitle">Ailenizin gelir, gider ve yatırım kayıtları.</p>
           </div>
         </div>

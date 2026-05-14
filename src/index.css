@@ -928,6 +928,31 @@ select {
   background: rgba(255, 255, 255, 0.03);
 }
 
+/* Netlify Dropdown Fix & Language Selector Styling */
+.language-selector select {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.language-selector select:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+/* Tarayıcıların dropdown listesini (option) beyaz göstermesini engeller */
+select option {
+  background-color: #0f172a; /* Opak koyu arka plan */
+  color: white;
+}
+
 .transaction-actions-cell {
   display: flex;
   gap: 0.5rem;
@@ -1403,6 +1428,16 @@ select {
   color: #38bdf8;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.plan-owner-tag {
+  font-size: 0.65rem;
+  color: rgba(148, 163, 184, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
 }
 
 .plan-amount {
