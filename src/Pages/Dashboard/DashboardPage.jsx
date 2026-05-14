@@ -66,7 +66,14 @@ function DashboardPage({ onLogout }) {
   // Otomatik işlemleri kontrol et
   useEffect(() => {
     processRecurringTransactions();
-    const plans = familyId ? getRecurringTransactions(familyId) : getRecurringTransactionsByUser(user?.id);
+    let plans = familyId ? getRecurringTransactions(familyId) : getRecurringTransactionsByUser(user?.id);
+    
+    // Rol bazlı filtreleme: Üyeler sadece kendi planlarını görür, 
+    // Founder/Master tüm aileyi görür.
+    if (user?.role === 'Member') {
+      plans = plans.filter(p => p.userId === user.id);
+    }
+    
     setRecurringPlans(plans);
   }, [refreshTrigger, familyId, user?.id]);
 

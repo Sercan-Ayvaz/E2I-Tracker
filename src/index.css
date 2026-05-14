@@ -300,8 +300,6 @@ select {
 
 .modal-close-btn {
   position: absolute; /* Modal kutusuna göre konumlandır */
-  top: 1.5rem;
-  right: 1.5rem;
   background: rgba(15, 23, 42, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: white;
@@ -317,8 +315,8 @@ select {
   backdrop-filter: blur(4px);
   font-size: 1.2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  top: 1.25rem; /* Modalın en üstünden boşluk */
-  right: 1.25rem; /* Modalın en sağından boşluk */
+  top: 1.25rem;
+  right: 1.25rem;
 }
 
 .modal-close-btn:hover {
@@ -425,6 +423,9 @@ select {
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-tab:hover {
@@ -470,6 +471,11 @@ select {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(56, 189, 248, 0.9);
   box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
+
+/* Lucide ikonların butonlarda küçülmesini engeller */
+.modal-tab svg, .modal-button svg {
+  flex-shrink: 0;
 }
 
 .modal-hint {

@@ -257,18 +257,18 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
               <>
                 <button
                   type="button"
-                  className={`modal-tab ${activeTab === 'create' ? 'active' : ''}`}
+                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'create' ? 'active' : ''}`}
                   onClick={() => setActiveTab('create')}
                 >
-                  <Shield size={16} className="inline-block mr-2" />
+                      <Shield size={16} />
                   {t.create}
                 </button>
                 <button
                   type="button"
-                  className={`modal-tab ${activeTab === 'join' ? 'active' : ''}`}
+                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'join' ? 'active' : ''}`}
                   onClick={() => setActiveTab('join')}
                 >
-                  <UserPlus size={16} className="inline-block mr-2" />
+                      <UserPlus size={16} />
                   {t.join}
                 </button>
               </>
@@ -277,18 +277,18 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
               <>
                 <button
                   type="button"
-                  className={`modal-tab ${activeTab === 'manage' ? 'active' : ''}`}
+                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'manage' ? 'active' : ''}`}
                   onClick={() => setActiveTab('manage')}
                 >
-                  <Settings size={16} className="inline-block mr-2" />
+                      <Settings size={16} />
                   {t.family}
                 </button>
                 <button
                   type="button"
-                  className={`modal-tab ${activeTab === 'leave' ? 'active' : ''}`}
+                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'leave' ? 'active' : ''}`}
                   onClick={() => setActiveTab('leave')}
                 >
-                  <LogOut size={16} className="inline-block mr-2" />
+                      <LogOut size={16} />
                   {t.leave}
                 </button>
               </>
@@ -336,14 +336,14 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                   <input
                     type="text"
                     id="joinFamilyId"
-                    className="modal-field"
+                    className="modal-field uppercase"
                     value={joinFamilyId}
                     onChange={(e) => setJoinFamilyId(e.target.value)}
                     placeholder="Aile kodunu girin (örn: E2I-ABC-123)"
                     required
                   />
                 </div>
-                <button type="submit" className="modal-button" disabled={loading}>
+                <button type="submit" className="modal-button modal-button--primary w-full" disabled={loading}>
                   {loading ? 'Başvuruluyor...' : 'Katılma Başvurusu Gönder'}
                 </button>
               </form>
@@ -362,10 +362,11 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                 {isFounder && (
                   <button
                     type="button"
-                    className="modal-button modal-button--secondary"
+                    className="modal-button modal-button--secondary flex items-center gap-2 mx-auto"
                     onClick={handleCopyInviteCode}
                   >
-                    {copied ? `✓ ${t.copied}` : `📋 ${t.inviteCode}`}
+                    {copied ? <Check size={16} /> : <Copy size={16} />}
+                    {copied ? t.copied : t.inviteCode}
                   </button>
                 )}
               </div>
