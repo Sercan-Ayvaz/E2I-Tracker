@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # E2I Tracker: Family Finance Management System
 
 ![E2I Tracker Screenshot](https://github.com/Sercan-Ayvaz/E2I-Tracker/blob/b44e8ebffa0072ce70f4c1183785264a653221aa/screenshots/screenshot_1.png)
