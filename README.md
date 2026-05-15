@@ -1,10 +1,11 @@
-<<<<<<< HEAD
 # E2I Tracker: Family Finance Management System
 
 ![E2I Tracker Screenshot](https://github.com/Sercan-Ayvaz/E2I-Tracker/blob/b44e8ebffa0072ce70f4c1183785264a653221aa/screenshots/screenshot_1.png)
 ![E2I Tracker Screenshot](https://github.com/Sercan-Ayvaz/E2I-Tracker/blob/b44e8ebffa0072ce70f4c1183785264a653221aa/screenshots/screenshot_2.png)
 
 E2I Tracker is a role-based finance tracking application that allows families to easily manage their income, expense, and investment records. Users can create their own families, invite other members, record financial movements, and automate financial processes with recurring transactions. The application aims to increase intra-family transparency and financial health while offering privacy options for personal investment data.
+
+Web Site: [e2i-tracker](https://e2i-tracker.netlify.app/)
 
 ## ✨ Features
 
