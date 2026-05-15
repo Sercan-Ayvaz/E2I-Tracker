@@ -64,9 +64,9 @@ const TransactionTable = ({ transactions, onEdit, onDelete, currentUser, t }) =>
   };
 
   return (
-    <div className="transaction-table-wrapper">
+    <div className="transaction-table-wrapper border border-[#e2e8f0] rounded-xl overflow-hidden">
       <table className="transaction-table">
-        <thead>
+        <thead className="bg-slate-50">
           <tr>
             <th onClick={() => requestSort('date')} style={{cursor:'pointer'}}>
               <div className="flex items-center gap-1"><Calendar size={14} /> {t.date} {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}</div>
@@ -88,14 +88,14 @@ const TransactionTable = ({ transactions, onEdit, onDelete, currentUser, t }) =>
             const isOwnTransaction = tx.userId === currentUser?.id;
             const user = getUser(tx.userId);
             const userName = user?.displayName || tx.userId;
-            const isAutomatic = tx.title?.startsWith('[Otomatik]');
+            const isAutomatic = tx.title?.includes('[Otomatik]');
             const categoryClass = `transaction-row--${tx.category.toLowerCase()}`;
             const autoClass = isAutomatic ? 'transaction-row--automatic' : '';
 
             return (
-              <tr key={tx.id} className={`transaction-row ${categoryClass} ${autoClass}`}>
-                <td>{new Date(tx.date).toLocaleDateString('tr-TR')}</td>
-                <td>
+              <tr key={tx.id} className={`transaction-row ${categoryClass} ${autoClass} transition-colors duration-150`}>
+                <td className="text-slate-400 text-sm font-medium">{new Date(tx.date).toLocaleDateString('tr-TR')}</td>
+                <td className="font-medium">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     {isAutomatic && <span className="badge-auto">{t.auto}</span>}
                     <span>{isAutomatic ? tx.title.replace('[Otomatik] ', '') : tx.title || '-'}</span>
@@ -107,10 +107,14 @@ const TransactionTable = ({ transactions, onEdit, onDelete, currentUser, t }) =>
                   )}
                 </td>
                 <td>
-                  {tx.category === 'Income' ? '📥 ' : tx.category === 'Expense' ? '📤 ' : '📈 '}
+                  <span style={{ color: tx.category === 'Income' ? '#055FF0' : tx.category === 'Expense' ? '#B3424D' : '#995FAB' }}> {/* Renkler yeni palete göre */}
+                    {tx.category === 'Income' ? '📥 ' : tx.category === 'Expense' ? '📤 ' : '📈 '}
+                  </span>
                   {tx.category === 'Income' ? t.income : tx.category === 'Expense' ? t.expense : t.investment}
                 </td>
-                <td className="amount-cell">{tx.amount.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</td>
+                <td className="amount-cell" style={{ color: tx.category === 'Income' ? '#055FF0' : tx.category === 'Expense' ? '#B3424D' : '#995FAB' }}> {/* Renkler yeni palete göre */}
+                  {tx.amount.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}
+                </td>
                 <td>{userName}</td>
                 <td className="transaction-history-cell">
                   {tx.history && tx.history.length > 0 ? (
@@ -129,13 +133,13 @@ const TransactionTable = ({ transactions, onEdit, onDelete, currentUser, t }) =>
                 </td>
                 <td className="transaction-actions-cell">
                   {canEditTransaction(tx) && (
-                    <button className="transaction-action-button" onClick={() => onEdit(tx)}>
-                      {t.edit}
+                    <button className="transaction-action-button transaction-action-button--edit" onClick={() => onEdit(tx)}>
+                      <Edit3 size={14} /> {t.edit}
                     </button>
                   )}
                   {canDeleteTransaction(tx) && (
                     <button className="transaction-action-button transaction-action-button--danger" onClick={() => onDelete(tx.id)}>
-                      {t.delete}
+                      <Trash2 size={14} /> {t.delete}
                     </button>
                   )}
                 </td>

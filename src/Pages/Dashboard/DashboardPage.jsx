@@ -206,8 +206,8 @@ function DashboardPage({ onLogout }) {
             </div>
 
               {/* Yatırım Gizlilik Checkbox */}
-              <div className="profile-privacy-toggle" style={{marginTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem'}}>
-                <label className="recurring-label" style={{justifyContent: 'center', fontSize: '0.85rem'}}>
+              <div className="profile-privacy-toggle" style={{marginTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '1rem'}}>
+                <label className="recurring-label" style={{justifyContent: 'center', fontSize: '0.85rem', color: '#7A8B99'}}>
                   <input 
                     type="checkbox" 
                     checked={user?.privateInvestments || false}
@@ -229,8 +229,8 @@ function DashboardPage({ onLogout }) {
           <div className="dashboard-header-bar">
             <div></div>
             <div className="dashboard-top-actions">
-              <div className="language-selector">
-                <select value={lang} onChange={handleLanguageChange}>
+              <div className="language-selector mr-2">
+                <select className="language-selector select" value={lang} onChange={handleLanguageChange}>
                   {languages.map(l => (
                     <option key={l.code} value={l.code}>
                       {l.flag} {l.name}
@@ -239,29 +239,29 @@ function DashboardPage({ onLogout }) {
                 </select>
               </div>
               <button className="dashboard-action-btn dashboard-action-btn--primary" onClick={() => setIsFamilyModalOpen(true)}>
-                <Users size={16} className="inline-block mr-2" /> {t.family}
+                <Users size={16} /> {t.family}
               </button>
-              <button className="dashboard-action-btn dashboard-action-btn--logout" onClick={handleLogout}>
-                <LogOut size={16} className="inline-block mr-2" /> {t.logout}
+              <button className="dashboard-action-btn dashboard-action-btn--logout" onClick={() => handleLogout()}>
+                <LogOut size={16} /> {t.logout}
               </button>
             </div>
           </div>
 
           {/* Üst Satır - İlk 2 Card */}
           <div className="dashboard-cards-row">
-            <article className="dashboard-card dashboard-card--income">
+            <article className="dashboard-card border-l-4 border-emerald-500">
               <div className="flex items-center gap-2 mb-1">
-                <TrendingUp size={20} className="text-emerald-500" />
+                <TrendingUp size={20} color="#055FF0" className="flex-shrink-0" />
                 <h3 className="m-0">{t.totalIncome}</h3>
               </div>
-              <p className="card-amount">{totals.income.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
+              <p className="card-amount" style={{ color: '#055FF0' }}>{totals.income.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
             </article>
-            <article className="dashboard-card dashboard-card--expense">
+            <article className="dashboard-card border-l-4 border-rose-500">
               <div className="flex items-center gap-2 mb-1">
-                <TrendingDown size={20} className="text-rose-500" />
+                <TrendingDown size={20} color="#B3424D" className="flex-shrink-0" />
                 <h3 className="m-0">{t.totalExpense}</h3>
               </div>
-              <p className="card-amount">{totals.expense.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
+              <p className="card-amount" style={{ color: '#B3424D' }}>{totals.expense.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
             </article>
           </div>
 
@@ -269,20 +269,20 @@ function DashboardPage({ onLogout }) {
           <div className="dashboard-cards-row">
             <article className="dashboard-card dashboard-card--investment">
               <div className="flex items-center gap-2 mb-1">
-                <PieChart size={20} className="text-blue-500" />
+                <PieChart size={20} color="#995FAB" className="flex-shrink-0" />
                 <h3 className="m-0">{t.totalInvestment}</h3>
               </div>
-              <p className="card-amount">{totals.investment.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
+              <p className="card-amount" style={{ color: '#995FAB' }}>{totals.investment.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
               <p className="card-hint">
                 {totals.investment > 0 ? t.investmentGrow : t.noInvestment}
               </p>
             </article>
             <article className="dashboard-card dashboard-card--balance">
               <div className="flex items-center gap-2 mb-1">
-                <Wallet size={20} className="text-amber-500" />
+                <Wallet size={20} color="#055FF0" className="flex-shrink-0" />
                 <h3 className="m-0">{t.balance}</h3>
               </div>
-              <p className="card-amount balance-highlight">{balance.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
+              <p className="card-amount" style={{ color: '#055FF0' }}>{balance.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
             </article>
           </div>
         </div>
@@ -292,7 +292,7 @@ function DashboardPage({ onLogout }) {
       {recurringPlans.length > 0 && (
         <section className="recurring-plans-section">
           <div className="section-header">
-            <h3><Calendar size={22} className="inline-block mr-2 text-sky-500" /> {t.activePlans}</h3>
+            <h3 className="flex items-center gap-2"><Calendar size={22} color="#995FAB" /> {t.activePlans}</h3>
             <p>{t.autoDesc}</p>
           </div>
           <div className="recurring-grid">
@@ -304,7 +304,7 @@ function DashboardPage({ onLogout }) {
                   <div className="plan-info">
                     <div className="flex justify-between items-start mb-1">
                       <span className="plan-day">{t.everyMonth} {plan.dayOfMonth}</span>
-                      <span className="plan-owner-tag">👤 {planOwner?.displayName || '...'}</span>
+                      <span className="plan-owner-tag" style={{ marginLeft: '1rem' }}>👤 {planOwner?.displayName || '...'}</span>
                     </div>
                     <h4>{plan.title}</h4>
                     <p className="plan-amount">{plan.amount.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })}</p>
@@ -337,19 +337,19 @@ function DashboardPage({ onLogout }) {
       {/* Alt Seksiyon - 3 Kart */}
       <section className="dashboard-action-cards">
         <article className="action-card action-card--income">
-          <div className="action-card-icon">📥</div>
+          <div className="action-card-icon" style={{ color: '#055FF0' }}>📥</div>
           <h3>{t.income} {t.addEdit}</h3>
           <p>{t.income} {t.manageData}</p>
           <button className="action-card-btn" onClick={() => handleOpenTransactionModal(null, 'Income')}>{t.open}</button>
         </article>
         <article className="action-card action-card--expense">
-          <div className="action-card-icon">📤</div>
+          <div className="action-card-icon" style={{ color: '#B3424D' }}>📤</div>
           <h3>{t.expense} {t.addEdit}</h3>
           <p>{t.expense} {t.manageData}</p>
           <button className="action-card-btn" onClick={() => handleOpenTransactionModal(null, 'Expense')}>{t.open}</button>
         </article>
         <article className="action-card action-card--investment">
-          <div className="action-card-icon">📈</div>
+          <div className="action-card-icon" style={{ color: '#995FAB' }}>📈</div>
           <h3>{t.investment} {t.addEdit}</h3>
           <p>{t.investment} {t.manageData}</p>
           <button className="action-card-btn" onClick={() => handleOpenTransactionModal(null, 'Investment')}>{t.open}</button>
@@ -359,7 +359,7 @@ function DashboardPage({ onLogout }) {
       <section className="dashboard-table-section">
         <div className="dashboard-table-header">
           <div>
-              <h3><History size={22} className="inline-block mr-2 text-slate-400" /> {t.history}</h3>
+              <h3 className="flex items-center gap-2"><History size={22} color="#8279B9" /> {t.history}</h3>
             <p className="dashboard-table-subtitle">Ailenizin gelir, gider ve yatırım kayıtları.</p>
           </div>
         </div>

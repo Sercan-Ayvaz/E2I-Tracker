@@ -9,7 +9,7 @@ function TransactionForm({ isOpen, onClose, transaction, recurringPlan, defaultC
     amount: '',
     category: 'Income',
     date: new Date().toISOString().split('T')[0],
-    isPrivate: false,
+    isPrivate: false, // Bu alanın TransactionForm'da doğrudan kullanılmadığına dikkat edin, Dashboard'da yönetiliyor.
     investmentType: '',
     price: '',
     quantity: '',
@@ -137,11 +137,11 @@ function TransactionForm({ isOpen, onClose, transaction, recurringPlan, defaultC
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2 className="flex items-center gap-2">
+          <h2 className="modal-title-with-icon">
             {transaction || recurringPlan ? (
-              <Edit3 size={24} className="text-emerald-600" />
+              <Edit3 size={24} color="#055FF0" />
             ) : (
-              <PlusCircle size={24} className="text-emerald-600" />
+              <PlusCircle size={24} color="#055FF0" />
             )}
             {transaction || recurringPlan ? t.edit : `${formData.category === 'Income' ? t.income : formData.category === 'Expense' ? t.expense : t.investment} ${t.add}`}
           </h2>
@@ -245,16 +245,16 @@ function TransactionForm({ isOpen, onClose, transaction, recurringPlan, defaultC
             </div>
           </div>
 
-          {!transaction && (
+          {!transaction && !recurringPlan && (
             <div className="recurring-checkbox-wrapper">
-              <label className="recurring-label">
+              <label className="recurring-label text-sm uppercase tracking-wider">
                 <input 
                   type="checkbox" 
                   checked={formData.isRecurring}
                   onChange={e => setFormData({...formData, isRecurring: e.target.checked})}
                 />
                 <span className="checkbox-box"></span>
-                <Repeat size={16} className="icon" />
+                <Repeat size={14} className="icon" />
                 {t.recurring}
               </label>
               {formData.isRecurring && (

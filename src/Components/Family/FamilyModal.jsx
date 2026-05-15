@@ -238,8 +238,8 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content modal-content--wide" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2 className="flex items-center gap-2">
-            <Home size={24} className="text-sky-500" />
+          <h2 className="modal-title-with-icon">
+            <Home size={24} color="#055FF0" />
             {t.family}
           </h2>
           <button type="button" className="modal-close-btn" onClick={onClose} title="Kapat">
@@ -257,18 +257,18 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
               <>
                 <button
                   type="button"
-                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'create' ? 'active' : ''}`}
+                  className={`modal-tab ${activeTab === 'create' ? 'active' : ''}`}
                   onClick={() => setActiveTab('create')}
                 >
-                      <Shield size={16} />
+                  <Shield size={16} color={activeTab === 'create' ? 'white' : '#8279B9'} />
                   {t.create}
                 </button>
                 <button
                   type="button"
-                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'join' ? 'active' : ''}`}
+                  className={`modal-tab ${activeTab === 'join' ? 'active' : ''}`}
                   onClick={() => setActiveTab('join')}
                 >
-                      <UserPlus size={16} />
+                  <UserPlus size={16} color={activeTab === 'join' ? 'white' : '#8279B9'} />
                   {t.join}
                 </button>
               </>
@@ -277,18 +277,18 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
               <>
                 <button
                   type="button"
-                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'manage' ? 'active' : ''}`}
+                  className={`modal-tab ${activeTab === 'manage' ? 'active' : ''}`}
                   onClick={() => setActiveTab('manage')}
                 >
-                      <Settings size={16} />
+                  <Settings size={16} color={activeTab === 'manage' ? 'white' : '#8279B9'} />
                   {t.family}
                 </button>
                 <button
                   type="button"
-                      className={`modal-tab flex items-center justify-center gap-2 ${activeTab === 'leave' ? 'active' : ''}`}
+                  className={`modal-tab ${activeTab === 'leave' ? 'active' : ''}`}
                   onClick={() => setActiveTab('leave')}
                 >
-                      <LogOut size={16} />
+                  <LogOut size={16} color={activeTab === 'leave' ? 'white' : '#8279B9'} />
                   {t.leave}
                 </button>
               </>
@@ -300,10 +300,10 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
             <div className="create-family">
               <div className="setup-welcome">
                 <h4 style={{color: '#38bdf8', marginBottom: '0.5rem'}}>{t.setupTitle}</h4>
-                <p style={{fontSize: '0.9rem', opacity: 0.8}}>{t.setupDesc}</p>
+                  <p style={{fontSize: '0.85rem', opacity: 0.8, color: '#8279B9'}}>{t.setupDesc}</p> {/* Yardımcı metin rengi */}
               </div>
               <form onSubmit={handleCreateFamily} className="modal-form">
-                <div className="input-group" style={{background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '1rem'}}>
+                  <div className="input-group" style={{background: '#f8fafc', padding: '1.5rem', borderRadius: '1rem', border: '1px solid #e2e8f0'}}>
                   <label htmlFor="familyName" className="modal-label">{t.familyName}</label>
                   <input
                     type="text"
@@ -314,7 +314,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                     placeholder="Örn: Yılmaz Ailesi Finans"
                     required
                   />
-                  <div style={{marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', fontSize: '0.85rem'}}>
+                  <div style={{marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#8279B9', fontSize: '0.85rem'}}> {/* Renk korundu */}
                     <span>✨</span>
                     <span>{t.autoFamilyCodeNote}</span>
                   </div>
@@ -330,7 +330,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
           {activeTab === 'join' && !family && (
             <div className="join-family">
               <h4>{t.join}</h4>
-              <form onSubmit={handleJoinFamily} className="modal-form">
+              <form onSubmit={handleJoinFamily} className="modal-form" style={{ gap: '1.5rem' }}> {/* Form elemanları arası boşluk */}
                 <div>
                   <label htmlFor="joinFamilyId" className="modal-label">{t.inviteCode}</label>
                   <input
@@ -343,7 +343,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                     required
                   />
                 </div>
-                <button type="submit" className="modal-button modal-button--primary w-full" disabled={loading}>
+                <button type="submit" className="modal-button modal-button--primary" disabled={loading} style={{ background: '#055FF0' }}>
                   {loading ? 'Başvuruluyor...' : 'Katılma Başvurusu Gönder'}
                 </button>
               </form>
@@ -356,11 +356,11 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
           {/* Aile yönetimi */}
           {activeTab === 'manage' && family && (
             <>
-              <div className="family-info">
+              <div className="family-info" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E1B7CE', borderRadius: '1.5rem' }}>
                 <h3>{family.name}</h3>
-                <p className="family-id">{t.familyIdLabel}: <code>{family.id}</code></p>
+                <p className="family-id" style={{ color: '#7A8B99' }}>{t.familyIdLabel}: <code style={{ backgroundColor: '#F1F5F9', color: '#2B3A42', padding: '0.25rem 0.75rem', borderRadius: '50px', border: '1px solid #E1B7CE', fontWeight: '600' }}>{family.id}</code></p>
                 {isFounder && (
-                  <button
+                  <button style={{ marginTop: '1rem' }}
                     type="button"
                     className="modal-button modal-button--secondary flex items-center gap-2 mx-auto"
                     onClick={handleCopyInviteCode}
@@ -386,15 +386,15 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                           <button
                             type="button"
                             className="modal-button modal-button--success modal-button--small"
-                            onClick={() => handleApproveRequest(member.id, true)}
+                            onClick={() => handleApproveRequest(member.id, true)} style={{ background: '#055FF0', color: 'white' }}
                           >
-                            ✓ {t.approve}
+                            ✓ {t.approve} {/* İkon yerine metin */}
                           </button>
                           <button
                             type="button"
                             className="modal-button modal-button--danger modal-button--small"
-                            onClick={() => handleApproveRequest(member.id, false)}
-                          >
+                            onClick={() => handleApproveRequest(member.id, false)} style={{ background: '#B3424D', color: 'white' }}
+                          > style={{ background: '#B3424D', color: 'white' }}
                             ✗ {t.reject}
                           </button>
                         </div>
@@ -428,7 +428,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                             <button
                               type="button"
                               className="modal-button modal-button--danger modal-button--small"
-                              onClick={() => handleRemoveMember(member.id)}
+                              onClick={() => handleRemoveMember(member.id)} style={{ background: '#B3424D', color: 'white', borderRadius: '50px' }}
                             >
                               {t.kick}
                             </button>
@@ -445,7 +445,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
                 <div className="family-danger-zone">
                   <h4>{t.dangerZone}</h4>
                   <button
-                    type="button"
+                    type="button" style={{ background: '#B3424D', color: 'white' }} /* Renk korundu */
                     className="modal-button modal-button--danger"
                     onClick={handleDeleteFamily}
                   >
@@ -465,7 +465,7 @@ function FamilyModal({ isOpen, onClose, onSuccess, t }) {
               </div>
               {!isFounder && (
                 <button
-                  type="button"
+                  type="button" style={{ background: '#B3424D', color: 'white' }} /* Renk korundu */
                   className="modal-button modal-button--danger"
                   onClick={handleLeaveFamily}
                 >

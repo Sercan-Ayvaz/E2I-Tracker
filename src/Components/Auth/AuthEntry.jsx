@@ -145,12 +145,12 @@ function AuthEntry({ onAuthSuccess }) {
   };
 
   return (
-    <div className="auth-shell">
-      <div className="auth-card">
+    <div className="auth-shell" style={{ backgroundColor: '#A9ACB6' }}>
+      <div className="auth-card" style={{ borderRadius: '2rem', border: '1px solid #E1B7CE' }}>
         <div className="auth-panel-left">
           <div className="auth-stack">
             <div>
-              <h1 className="auth-brand">E2I Tracker</h1>
+              <h1 className="auth-brand" style={{ color: '#055FF0' }}>E2I Tracker</h1>
             </div>
 
             <div className="auth-toggle">
@@ -158,6 +158,7 @@ function AuthEntry({ onAuthSuccess }) {
                 type="button"
                 onClick={() => switchTab('login')}
                 className={`auth-tab ${activeTab === 'login' ? 'auth-tab--active' : ''}`}
+                // Inline style removed, managed by CSS class
               >
                 Giriş Yap
               </button>
@@ -165,6 +166,7 @@ function AuthEntry({ onAuthSuccess }) {
                 type="button"
                 onClick={() => switchTab('signup')}
                 className={`auth-tab ${activeTab === 'signup' ? 'auth-tab--active' : ''}`}
+                // Inline style removed, managed by CSS class
               >
                 Kayıt Ol
               </button>
@@ -176,7 +178,7 @@ function AuthEntry({ onAuthSuccess }) {
             {activeTab === 'login' && (
               <form onSubmit={handleLogin} className="auth-form">
                 <div>
-                  <label className="auth-label">Kullanıcı Adı veya E-Posta</label>
+                  <label className="auth-label" style={{ color: '#8279B9' }}>Kullanıcı Adı veya E-Posta</label>
                   <input
                     type="text"
                     name="username"
@@ -184,11 +186,12 @@ function AuthEntry({ onAuthSuccess }) {
                     onChange={handleInputChange}
                     placeholder="alexjordan veya alex@example.com"
                     className="auth-field"
+                    // Inline style removed, managed by CSS class
                     required
                   />
                 </div>
                 <div>
-                  <label className="auth-label">Şifre</label>
+                  <label className="auth-label" style={{ color: '#8279B9' }}>Şifre</label>
                   <div className="password-field">
                     <input
                       type={showPassword ? 'text' : 'password'}
@@ -199,12 +202,14 @@ function AuthEntry({ onAuthSuccess }) {
                       onPaste={(e) => e.preventDefault()}
                       placeholder="Şifreniz"
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="password-toggle"
+                      style={{ color: '#8279B9' }}
                     >
                       {showPassword ? 'Gizle' : 'Göster'}
                     </button>
@@ -228,6 +233,7 @@ function AuthEntry({ onAuthSuccess }) {
                       onChange={handleInputChange}
                       placeholder="Alex"
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     />
                   </div>
@@ -240,6 +246,7 @@ function AuthEntry({ onAuthSuccess }) {
                       onChange={handleInputChange}
                       placeholder="Johnson"
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     />
                   </div>
@@ -254,6 +261,7 @@ function AuthEntry({ onAuthSuccess }) {
                       onChange={handleInputChange}
                       placeholder="30"
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     />
                   </div>
@@ -264,6 +272,7 @@ function AuthEntry({ onAuthSuccess }) {
                       value={formData.gender}
                       onChange={handleInputChange}
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     >
                       <option value="">Seçin</option>
@@ -282,6 +291,7 @@ function AuthEntry({ onAuthSuccess }) {
                     onChange={handleInputChange}
                     placeholder="alex.johnson@example.com"
                     className="auth-field"
+                    // Inline style removed, managed by CSS class
                     required
                   />
                 </div>
@@ -294,6 +304,7 @@ function AuthEntry({ onAuthSuccess }) {
                     onChange={handleInputChange}
                     placeholder="alexjordan"
                     className="auth-field"
+                    // Inline style removed, managed by CSS class
                     required
                   />
                 </div>
@@ -309,12 +320,14 @@ function AuthEntry({ onAuthSuccess }) {
                       onPaste={(e) => e.preventDefault()}
                       placeholder="Şifreniz"
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="password-toggle"
+                      style={{ color: '#8279B9' }}
                     >
                       {showPassword ? 'Gizle' : 'Göster'}
                     </button>
@@ -332,12 +345,14 @@ function AuthEntry({ onAuthSuccess }) {
                       onPaste={(e) => e.preventDefault()}
                       placeholder="Şifrenizi tekrar girin"
                       className="auth-field"
+                      // Inline style removed, managed by CSS class
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="password-toggle"
+                      style={{ color: '#8279B9' }}
                     >
                       {showConfirmPassword ? 'Gizle' : 'Göster'}
                     </button>
